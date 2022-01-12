@@ -10,19 +10,20 @@ function App() {
   // process CSV file data
   const processData = dataString => {
     const dataStringLines = dataString.split(/\r\n|\n/);
+    // create header from the first row of data in the .csv
     const headers = dataStringLines[0].split(/,(?![^"]*"(?:(?:[^"]*"){2})*[^"]*$)/);
     
     const list = [];
     for (let i = 1; i < dataStringLines.length; i++) {
       const row = dataStringLines[i].split(/,(?![^"]*"(?:(?:[^"]*"){2})*[^"]*$)/);
-      if (headers && row.length == headers.length) {
+      if (headers && row.length === headers.length) {
         const obj = {};
         for (let j = 0; j < headers.length; j++) {
           let d = row[j];
           if (d.length > 0) {
-            if (d[0] == '"')
+            if (d[0] === '"')
               d = d.substring(1, d.length - 1);
-            if (d[d.length - 1] == '"')
+            if (d[d.length - 1] === '"')
               d = d.substring(d.length - 2, 1);
           }
           if (headers[j]) {
@@ -61,13 +62,15 @@ function App() {
       /* Convert array of arrays */
       const data = XLSX.utils.sheet_to_csv(ws, { header: 1 });
       processData(data);
+      
+      console.log(data)
     };
     reader.readAsBinaryString(file);
   }
 
   return (
     <div>
-      <h3>Upload and View a CSV File</h3>
+      <h3>Upload, View and Download a .csv File</h3>
       <input
         type="file"
         accept=".csv,.xlsx,.xls"
