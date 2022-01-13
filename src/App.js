@@ -2,6 +2,20 @@ import React, { useState } from 'react';
 import * as XLSX from 'xlsx';
 import DataTable from 'react-data-table-component';
 
+
+   /* authentication needed to push results_file to /uploads  */
+// 'use strict';
+
+// var GitHub = require('./github');
+// var config = {
+//    username: 'oceaneboulais',
+//    password: 'D', // Either your password or an authentication token if two-factor authentication is enabled
+//    auth: 'basic',
+//    repository: 'uploader',
+//    branchName: 'master'
+// };
+// var gitHub = new GitHub(config)
+
 function App() {
 
   const [columns, setColumns] = useState([]);
@@ -12,8 +26,7 @@ function App() {
     const dataStringLines = dataString.split(/\r\n|\n/);
     // create header from the first row of data in the .csv
     const headers = dataStringLines[0].split(/,(?![^"]*"(?:(?:[^"]*"){2})*[^"]*$)/);
-    
-    const list = [];
+    const list = []; 
     for (let i = 1; i < dataStringLines.length; i++) {
       const row = dataStringLines[i].split(/,(?![^"]*"(?:(?:[^"]*"){2})*[^"]*$)/);
       if (headers && row.length === headers.length) {
@@ -64,7 +77,12 @@ function App() {
       processData(data);
       console.log(data)
 
-      
+      /* Next Steps */
+      // take data and copy into buffer variable uploadedResults
+      // make pushToGithub function that creates a new file called results_file
+      // paste uploadedResults to results_file
+      // push results_file to github folder /uploads
+  
     };
     reader.readAsBinaryString(file);
   }
