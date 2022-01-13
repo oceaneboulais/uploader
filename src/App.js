@@ -62,8 +62,9 @@ function App() {
       /* Convert array of arrays */
       const data = XLSX.utils.sheet_to_csv(ws, { header: 1 });
       processData(data);
-      
       console.log(data)
+
+      
     };
     reader.readAsBinaryString(file);
   }
